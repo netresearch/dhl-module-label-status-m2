@@ -1,0 +1,21 @@
+{
+  "name": "dhl/module-label-status",
+  "description": "",
+  "type": "magento2-module",
+  "license": "OSL-3.0",
+  "authors": [
+    {
+      "name": "Sebastian Ertner",
+      "email": "sebastian.ertner@netresearch.de"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Dhl\\LabelStatus\\": ""
+    }
+  }
+}
