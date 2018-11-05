@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Dhl LabelStatus
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to
+ * newer versions in the future.
+ *
+ * @package   Dhl\LabelStatus
+ * @author    Sebastian Ertner <sebastian.ertner@netresearch.de>
+ * @copyright 2018 Netresearch GmbH & Co. KG
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link      http://www.netresearch.de/
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Dhl\LabelStatus\Api\Data\LabelStatusInterface" type="Dhl\LabelStatus\Model\Label\LabelStatus"/>
+    <preference for="Dhl\LabelStatus\Api\LabelStatusRepositoryInterface" type="\Dhl\LabelStatus\Model\LabelStatusRepository"/>
+
+    <type name="Dhl\LabelStatus\Model\SalesOrderGrid\OrderGridUpdater">
+        <arguments>
+            <argument name="entityGrid" xsi:type="object">Magento\Sales\Model\ResourceModel\Order\Grid</argument>
+        </arguments>
+    </type>
+    <virtualType name="DhlShippingLabelStatusIdListProvider" type="Magento\Sales\Model\ResourceModel\Provider\NotSyncedDataProvider">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="dhlshipping" xsi:type="string">Dhl\LabelStatus\Model\SalesOrderGrid\NotSyncedOrderIdListProvider</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid">
+        <arguments>
+            <argument name="idListProvider" xsi:type="object">DhlShippingLabelStatusIdListProvider</argument>
+            <argument name="joins" xsi:type="array">
+                <item name="dhlshipping_label_status" xsi:type="array">
+                    <item name="table" xsi:type="string">dhlshipping_label_status</item>
+                    <item name="origin_column" xsi:type="string">entity_id</item>
+                    <item name="target_column" xsi:type="string">order_id</item>
+                </item>
+            </argument>
+            <argument name="columns" xsi:type="array">
+                <item name="dhlshipping_label_status" xsi:type="string">dhlshipping_label_status.status_code</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>
