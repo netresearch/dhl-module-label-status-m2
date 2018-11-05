@@ -43,7 +43,7 @@ use Magento\Framework\Model\AbstractModel;
 /**
  * Class LabelStatusRepository
  *
- * @package Dhl\Shipping\Model
+ * @package Dhl\LabelStatus\Model
  */
 class LabelStatusRepository implements LabelStatusRepositoryInterface
 {
