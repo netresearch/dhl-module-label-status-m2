@@ -41,7 +41,6 @@ class ShippingSetup
 {
     const TABLE_LABEL_STATUS = 'dhlshipping_label_status';
 
-
     /**
      * Create table dhlshipping_label_status
      *

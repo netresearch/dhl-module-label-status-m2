@@ -18,6 +18,7 @@
  *
  * @category  Dhl
  * @package   Dhl\LabelStatus
+ * @author    Andreas Müller <andreas.mueller@netresearch.de>
  * @author    Sebastian Ertner <sebastian.ertner@netresearch.de>
  * @copyright 2018 Netresearch GmbH & Co. KG
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
@@ -35,6 +36,7 @@ use Magento\Framework\Model\AbstractModel;
  *
  * @category Dhl
  * @package  Dhl\LabelStatus\Model\Label
+ * @author    Andreas Müller <andreas.mueller@netresearch.de>
  * @author   Sebastian Ertner <sebastian.ertner@netresearch.de>
  * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  * @link     http://www.netresearch.de/

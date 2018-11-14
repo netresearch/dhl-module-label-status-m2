@@ -15,6 +15,7 @@
  * newer versions in the future.
  *
  * @package   Dhl\LabelStatus\Observer
+ * @author    Andreas Müller <andreas.mueller@netresearch.de>
  * @author    Sebastian Ertner <sebastian.ertner@netresearch.de>
  * @copyright 2018 Netresearch GmbH & Co. KG
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
@@ -35,6 +36,7 @@ use Magento\Framework\Exception\LocalizedException;
  * Class DeleteTrackObserver
  *
  * @package   Dhl\LabelStatus\Observer
+ * @author    Andreas Müller <andreas.mueller@netresearch.de>
  * @author    Sebastian Ertner <sebastian.ertner@netresearch.de>
  * @copyright 2018 Netresearch GmbH & Co. KG
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
