@@ -29,4 +29,7 @@
     <event name="dhlshipping_label_create_after">
         <observer name="shipping_update_label_status" instance="Dhl\LabelStatus\Observer\UpdateLabelStatusObserver" />
     </event>
+    <event name="dhl_delete_track_after">
+        <observer name="shipping_update_label_status_on_trackdelete" instance="Dhl\LabelStatus\Observer\DeleteTrackObserver" />
+    </event>
 </config>
