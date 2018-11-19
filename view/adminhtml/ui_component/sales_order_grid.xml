@@ -27,19 +27,6 @@
 -->
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-    <listingToolbar name="listing_top">
-        <massaction name="listing_massaction">
-            <action name="dhl_autocreate">
-                <argument name="data" xsi:type="array">
-                    <item name="config" xsi:type="array">
-                        <item name="type" xsi:type="string">autocreate</item>
-                        <item name="label" xsi:type="string" translate="true">Create Shipping Labels</item>
-                        <item name="url" xsi:type="url" path="dhl/order/autoCreate"/>
-                    </item>
-                </argument>
-            </action>
-        </massaction>
-    </listingToolbar>
     <columns name="sales_order_columns">
         <column name="dhlshipping_label_status"
                 component="Magento_Ui/js/grid/columns/column"
