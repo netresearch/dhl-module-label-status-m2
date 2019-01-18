@@ -6,7 +6,7 @@
     "magento/module-sales": "^101.0.0 || ^102.0.0",
     "magento/framework": "^101.0.0 || ^102.0.0",
     "magento/module-ui" : "^101.0.0",
-    "dhl/module-shipping-m2": "0.10.0"
+    "dhl/module-shipping-m2": "^0.10.0"
   },
   "type": "magento2-module",
   "license": "OSL-3.0",
@@ -14,6 +14,14 @@
     {
       "name": "Sebastian Ertner",
       "email": "sebastian.ertner@netresearch.de"
+    },
+    {
+      "name": "Andreas Müller",
+      "email": "andreas.mueller@netresearch.de"
+    },
+    {
+      "name": "Max Melzer",
+      "email": "max.melzer@netresearch.de"
     }
   ],
   "support": {

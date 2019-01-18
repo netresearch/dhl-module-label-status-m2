@@ -67,8 +67,6 @@ class Uninstall implements UninstallInterface
         $this->deleteStatusTableAndColumn($schemaSetup);
     }
 
-
-
     /**
      * @param SchemaSetupInterface $uninstaller
      * @return void
