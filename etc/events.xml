@@ -26,6 +26,9 @@
     <event name="checkout_submit_all_after">
         <observer name="shipping_init_label_status" instance="Dhl\LabelStatus\Observer\UpdateLabelStatusObserver" />
     </event>
+    <event name="paypal_express_place_order_success">
+        <observer name="shipping_init_label_status_paypal" instance="Dhl\LabelStatus\Observer\UpdateLabelStatusObserver" />
+    </event>
     <event name="dhlshipping_label_create_after">
         <observer name="shipping_update_label_status" instance="Dhl\LabelStatus\Observer\UpdateLabelStatusObserver" />
     </event>
