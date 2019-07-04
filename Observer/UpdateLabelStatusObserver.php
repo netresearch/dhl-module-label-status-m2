@@ -90,10 +90,13 @@ class UpdateLabelStatusObserver implements ObserverInterface
     {
         /** @var \Magento\Sales\Api\Data\OrderInterface|\Magento\Sales\Model\Order $order */
         $order = $observer->getEvent()->getData('order');
+        if ($order->getIsVirtual()) {
+            return;
+        }
+        
         $errors = $observer->getEvent()->getData('errors');
         $carrier = $order->getShippingMethod(true)->getData('carrier_code');
-
-        if ($order->getIsVirtual() || $carrier !== Carrier::CODE) {
+        if ($carrier !== Carrier::CODE) {
             return;
         }
         $orderId = $order->getId();
