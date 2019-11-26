@@ -17,7 +17,7 @@ It is not designed to function without the DHL Shipping extension.
 
 * `dhl/module-shipping-m2` >= 0.10.0
 * Magento 2.2.4 to 2.3
-* PHP 7.0.2 to 7.2
+* PHP 7.0.2 to 7.3
 
 ## Installation Instructions
 
