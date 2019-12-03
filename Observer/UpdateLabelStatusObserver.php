@@ -33,6 +33,7 @@ use Dhl\LabelStatus\Model\SalesOrderGrid\OrderGridUpdater;
 use Dhl\Shipping\Model\Shipping\Carrier;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Sales\Api\Data\OrderInterface;
 
 /**
  * UpdateLabelStatusObserver
@@ -79,44 +80,53 @@ class UpdateLabelStatusObserver implements ObserverInterface
     }
 
     /**
-     * When an order is shippable and can be shipped with DHL Shipping,
-     * this will check for the order's label status,
-     * create a new label status if neccessary,
-     * and update the order grid.
+     * Update label status.
+     *
+     * When an order is shippable and can be shipped with DHL Shipping, this will check for the order's label status,
+     * create a new label status entity if necessary, and update the orders grid.
      *
      * @param Observer $observer
      */
     public function execute(Observer $observer)
     {
-        /** @var \Magento\Sales\Api\Data\OrderInterface|\Magento\Sales\Model\Order $order */
-        $order = $observer->getEvent()->getData('order');
-        if ($order->getIsVirtual()) {
-            return;
-        }
+        $orders = $observer->getEvent()->hasData('orders')
+            ? $observer->getEvent()->getData('orders')
+            : [$observer->getEvent()->getData('order')];
 
-        $errors = $observer->getEvent()->getData('errors');
-        $carrier = $order->getShippingMethod(true)->getData('carrier_code');
-        if ($carrier !== Carrier::CODE) {
-            return;
-        }
-        $orderId = $order->getId();
-        $isPartial = $order->canShip();
-        $labelStatus = $this->labelStatusRepository->getByOrderId($orderId);
+        foreach ($orders as $order) {
+            if (!$order instanceof OrderInterface) {
+                continue;
+            }
 
-        if ($labelStatus === null) {
-            $labelStatus = $this->labelStatusFactory->create();
-            $labelStatus->setOrderId($orderId);
-            $labelStatus->setStatusCode(LabelStatus::CODE_PENDING);
-        }
+            if ($order->getIsVirtual()) {
+                continue;
+            }
 
-        if (isset($errors)) {
-            $labelStatus->setStatusCode(LabelStatus::CODE_FAILED);
-        } elseif ($isPartial) {
-            $labelStatus->setStatusCode(LabelStatus::CODE_PENDING);
-        } else {
-            $labelStatus->setStatusCode(LabelStatus::CODE_PROCESSED);
+            $carrierCode = strtok((string) $order->getShippingMethod(), '_');
+            if ($carrierCode !== Carrier::CODE) {
+                continue;
+            }
+
+            $orderId = $order->getId();
+            $isPartial = $order->canShip();
+            $labelStatus = $this->labelStatusRepository->getByOrderId($orderId);
+
+            if ($labelStatus === null) {
+                $labelStatus = $this->labelStatusFactory->create();
+                $labelStatus->setOrderId($orderId);
+                $labelStatus->setStatusCode(LabelStatus::CODE_PENDING);
+            }
+
+            $errors = $observer->getEvent()->getData('errors');
+            if (isset($errors)) {
+                $labelStatus->setStatusCode(LabelStatus::CODE_FAILED);
+            } elseif ($isPartial) {
+                $labelStatus->setStatusCode(LabelStatus::CODE_PENDING);
+            } else {
+                $labelStatus->setStatusCode(LabelStatus::CODE_PROCESSED);
+            }
+            $this->labelStatusRepository->save($labelStatus);
+            $this->orderGridUpdater->update($orderId);
         }
-        $this->labelStatusRepository->save($labelStatus);
-        $this->orderGridUpdater->update($orderId);
     }
 }
